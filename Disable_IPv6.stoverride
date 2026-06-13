@@ -8,5 +8,9 @@ dns:
   default-nameserver: #!replace
     - 223.5.5.5
     - 119.29.29.29
+  nameserver: #!replace
+    - 223.5.5.5
+    - 119.29.29.29
+  fallback: #!replace
     - 1.1.1.1
     - 8.8.8.8
