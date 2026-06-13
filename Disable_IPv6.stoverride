@@ -1,5 +1,5 @@
-name: "Disable IPv6 Stable"
-desc: "关闭 IPv6，并使用 IPv4 DNS"
+name: "DNS Leak Guard Stable"
+desc: "关闭 IPv6，避免系统 DNS，使用加密 DNS"
 
 ipv6: false
 
@@ -9,8 +9,9 @@ dns:
     - 223.5.5.5
     - 119.29.29.29
   nameserver: #!replace
-    - 223.5.5.5
-    - 119.29.29.29
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
   fallback: #!replace
-    - 1.1.1.1
-    - 8.8.8.8
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+  follow-rule: false
