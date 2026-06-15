@@ -1,17 +1,15 @@
 name: "DNS Leak Guard Stable"
 desc: "关闭 IPv6，避免系统 DNS，使用加密 DNS"
 
-ipv6: false
-
-dns:
+dns: #!replace
   ipv6: false
-  default-nameserver: #!replace
+  default-nameserver:
     - 223.5.5.5
     - 119.29.29.29
-  nameserver: #!replace
+  nameserver:
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
-  fallback: #!replace
+  fallback:
     - https://1.1.1.1/dns-query
     - https://8.8.8.8/dns-query
   follow-rule: false
