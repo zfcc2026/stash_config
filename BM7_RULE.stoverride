@@ -70,7 +70,7 @@ proxy-groups: #!replace
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Info.png
     type: select
     include-all: true
-    filter: '(?i)(有效期|到期|过期|失效|剩余|流量|用量|已用|总量|套餐|重置|Expire|Expiry|Expiration|Expire\s*Date|Traffic|Bandwidth|Data|Usage|Used|Remaining|Remain|Reset|Days?\s*Left|Quota|Total|\d{4}[-/\.年]\d{1,2}[-/\.月]\d{1,2}|\d+(\.\d+)?\s*(KiB|MiB|GiB|TiB|KB|MB|GB|TB|K|M|G|T)\s*(\||/|of)\s*\d+(\.\d+)?\s*(KiB|MiB|GiB|TiB|KB|MB|GB|TB|K|M|G|T))'
+    filter: '(?i)(有效期|到期|过期|失效|剩余|用量|已用|总量|套餐|重置|Expire|Expiry|Expiration|Expire\s*Date|Traffic|Bandwidth|Data|Usage|Used|Remaining|Remain|Reset|Days?\s*Left|Quota|Total|\d{4}[-/\.年]\d{1,2}[-/\.月]\d{1,2}|\d+(\.\d+)?\s*(KiB|MiB|GiB|TiB|KB|MB|GB|TB|K|M|G|T)\s*(\||/|of)\s*\d+(\.\d+)?\s*(KiB|MiB|GiB|TiB|KB|MB|GB|TB|K|M|G|T))'
 
   - name: 订阅-到期信息
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Calendar.png
@@ -82,7 +82,7 @@ proxy-groups: #!replace
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Speedtest.png
     type: select
     include-all: true
-    filter: '(?i)(剩余|流量|用量|已用|总量|套餐|重置|Traffic|Bandwidth|Data|Usage|Used|Remaining|Remain|Reset|Days?\s*Left|Quota|Total|\d+(\.\d+)?\s*(KiB|MiB|GiB|TiB|KB|MB|GB|TB|K|M|G|T)\s*(\||/|of)\s*\d+(\.\d+)?\s*(KiB|MiB|GiB|TiB|KB|MB|GB|TB|K|M|G|T))'
+    filter: '(?i)(剩余|用量|已用|总量|套餐|重置|Traffic|Bandwidth|Data|Usage|Used|Remaining|Remain|Reset|Days?\s*Left|Quota|Total|\d+(\.\d+)?\s*(KiB|MiB|GiB|TiB|KB|MB|GB|TB|K|M|G|T)\s*(\||/|of)\s*\d+(\.\d+)?\s*(KiB|MiB|GiB|TiB|KB|MB|GB|TB|K|M|G|T))'
 
 # ==================================================
 # 分流策略组：分流-*
