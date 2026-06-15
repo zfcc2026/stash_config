@@ -13,8 +13,6 @@ desc: |-
   2. 分流-* 放在中间，用于不同服务分流；
   3. 节点-* 放在最后，用于地区节点筛选。
 
-  既可以选择自定义策略组，也可以直接选择订阅中的某个固定节点。
-
 mode: rule
 
 
@@ -57,7 +55,7 @@ proxy-groups: #!replace
       - Auto
       - Auto 日美
       - 节点-HK 香港
-      - 节点-TW 台湾
+      - 节点-TW 台湾省
       - 节点-JP 日本
       - 节点-KR 韩国
       - 节点-US 美国
@@ -76,7 +74,7 @@ proxy-groups: #!replace
       - Auto
       - Auto 日美
       - 节点-HK 香港
-      - 节点-TW 台湾
+      - 节点-TW 台湾省
       - 节点-JP 日本
       - 节点-KR 韩国
       - 节点-US 美国
@@ -92,7 +90,7 @@ proxy-groups: #!replace
       - Auto
       - Auto 日美
       - 节点-HK 香港
-      - 节点-TW 台湾
+      - 节点-TW 台湾省
       - 节点-JP 日本
       - 节点-KR 韩国
       - 节点-US 美国
@@ -108,7 +106,7 @@ proxy-groups: #!replace
       - Auto
       - Auto 日美
       - 节点-HK 香港
-      - 节点-TW 台湾
+      - 节点-TW 台湾省
       - 节点-JP 日本
       - 节点-KR 韩国
       - 节点-US 美国
@@ -124,7 +122,7 @@ proxy-groups: #!replace
       - Auto
       - Auto 日美
       - 节点-HK 香港
-      - 节点-TW 台湾
+      - 节点-TW 台湾省
       - 节点-JP 日本
       - 节点-KR 韩国
       - 节点-US 美国
@@ -140,7 +138,7 @@ proxy-groups: #!replace
       - Auto
       - Auto 日美
       - 节点-HK 香港
-      - 节点-TW 台湾
+      - 节点-TW 台湾省
       - 节点-JP 日本
       - 节点-KR 韩国
       - 节点-US 美国
@@ -156,7 +154,7 @@ proxy-groups: #!replace
       - Auto
       - Auto 日美
       - 节点-HK 香港
-      - 节点-TW 台湾
+      - 节点-TW 台湾省
       - 节点-JP 日本
       - 节点-KR 韩国
       - 节点-US 美国
@@ -172,7 +170,7 @@ proxy-groups: #!replace
       - Auto
       - Auto 日美
       - 节点-HK 香港
-      - 节点-TW 台湾
+      - 节点-TW 台湾省
       - 节点-JP 日本
       - 节点-KR 韩国
       - 节点-US 美国
@@ -188,7 +186,7 @@ proxy-groups: #!replace
       - Auto
       - Auto 日美
       - 节点-HK 香港
-      - 节点-TW 台湾
+      - 节点-TW 台湾省
       - 节点-JP 日本
       - 节点-KR 韩国
       - 节点-US 美国
@@ -204,7 +202,7 @@ proxy-groups: #!replace
       - Auto
       - Auto 日美
       - 节点-HK 香港
-      - 节点-TW 台湾
+      - 节点-TW 台湾省
       - 节点-JP 日本
       - 节点-KR 韩国
       - 节点-US 美国
@@ -220,7 +218,7 @@ proxy-groups: #!replace
       - Auto
       - Auto 日美
       - 节点-HK 香港
-      - 节点-TW 台湾
+      - 节点-TW 台湾省
       - 节点-JP 日本
       - 节点-KR 韩国
       - 节点-US 美国
@@ -236,7 +234,7 @@ proxy-groups: #!replace
       - Auto
       - Auto 日美
       - 节点-HK 香港
-      - 节点-TW 台湾
+      - 节点-TW 台湾省
       - 节点-JP 日本
       - 节点-KR 韩国
       - 节点-US 美国
@@ -252,7 +250,7 @@ proxy-groups: #!replace
       - Auto
       - Auto 日美
       - 节点-HK 香港
-      - 节点-TW 台湾
+      - 节点-TW 台湾省
       - 节点-JP 日本
       - 节点-KR 韩国
       - 节点-US 美国
@@ -272,7 +270,7 @@ proxy-groups: #!replace
     url: http://www.gstatic.com/generate_204
     filter: "(?i)(🇭🇰|HK|Hong|hong|香港|深港|沪港|京港|港)"
 
-  - name: 节点-TW 台湾
+  - name: 节点-TW 台湾省
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png
     type: url-test
     include-all: true
@@ -372,6 +370,78 @@ rules: #!replace
   - DOMAIN-SUFFIX,work.weixin.qq.com,DIRECT
   - DOMAIN-SUFFIX,feishu.cn,DIRECT
   - DOMAIN-SUFFIX,feishuapp.cn,DIRECT
+
+# ==================================================
+# HTTPDNS 拦截
+# 整合自 blackmatrix7 BlockHTTPDNS 的 rules 部分
+# 仅保留 DOMAIN / DOMAIN-SUFFIX / IP-CIDR / IP-CIDR6，不引入 rewrite / mitm
+# ==================================================
+  - DOMAIN,dns.jd.com,REJECT
+  - DOMAIN,dns.weibo.cn,REJECT
+  - DOMAIN,dns.weixin.qq.com,REJECT
+  - DOMAIN,dns.weixin.qq.com.cn,REJECT
+  - DOMAIN,httpdns-api.aliyuncs.com,REJECT
+  - DOMAIN,httpdns-sc.aliyuncs.com,REJECT
+  - DOMAIN,httpdns.alicdn.com,REJECT
+  - DOMAIN,httpdns.baidu.com,REJECT
+  - DOMAIN,httpdns.baidubce.com,REJECT
+  - DOMAIN,httpdns.bilivideo.com,REJECT
+  - DOMAIN,httpdns.c.cdnhwc2.com,REJECT
+  - DOMAIN,httpdns.calorietech.com,REJECT
+  - DOMAIN,httpdns.meituan.com,REJECT
+  - DOMAIN,httpdns.music.163.com,REJECT
+  - DOMAIN,httpdns.n.netease.com,REJECT
+  - DOMAIN,httpdns.push.oppomobile.com,REJECT
+  - DOMAIN,httpdns.volcengineapi.com,REJECT
+  - DOMAIN,httpdns.yunxindns.com,REJECT
+  - DOMAIN,httpdnsvip.meituan.com,REJECT
+  - DOMAIN,httpsdns.baidu.com,REJECT
+  - DOMAIN,lofter.httpdns.c.163.com,REJECT
+  - DOMAIN,music.httpdns.c.163.com,REJECT
+  - DOMAIN-SUFFIX,httpdns.pro,REJECT
+  - IP-CIDR,101.124.19.122/32,REJECT
+  - IP-CIDR,101.91.140.124/32,REJECT
+  - IP-CIDR,101.91.140.224/32,REJECT
+  - IP-CIDR,103.224.222.208/32,REJECT
+  - IP-CIDR,112.64.218.119/32,REJECT
+  - IP-CIDR,112.65.200.117/32,REJECT
+  - IP-CIDR,114.116.215.110/32,REJECT
+  - IP-CIDR,115.236.121.195/32,REJECT
+  - IP-CIDR,115.236.121.51/32,REJECT
+  - IP-CIDR,116.63.10.135/32,REJECT
+  - IP-CIDR,116.63.10.31/32,REJECT
+  - IP-CIDR,117.144.238.29/32,REJECT
+  - IP-CIDR,117.185.228.108/32,REJECT
+  - IP-CIDR,118.89.204.198/32,REJECT
+  - IP-CIDR,119.29.29.98/32,REJECT
+  - IP-CIDR,119.29.29.99/32,REJECT
+  - IP-CIDR,120.46.169.234/32,REJECT
+  - IP-CIDR,121.36.72.124/32,REJECT
+  - IP-CIDR,122.9.13.79/32,REJECT
+  - IP-CIDR,122.9.15.129/32,REJECT
+  - IP-CIDR,122.9.7.134/32,REJECT
+  - IP-CIDR,123.151.54.50/32,REJECT
+  - IP-CIDR,180.76.76.200/32,REJECT
+  - IP-CIDR,182.254.116.117/32,REJECT
+  - IP-CIDR,182.254.118.119/32,REJECT
+  - IP-CIDR,202.90.108.13/32,REJECT
+  - IP-CIDR,202.90.110.46/32,REJECT
+  - IP-CIDR,203.107.1.0/24,REJECT
+  - IP-CIDR,39.97.128.148/32,REJECT
+  - IP-CIDR,39.97.130.51/32,REJECT
+  - IP-CIDR,42.187.182.106/32,REJECT
+  - IP-CIDR,42.187.182.123/32,REJECT
+  - IP-CIDR,42.187.184.154/32,REJECT
+  - IP-CIDR,42.81.232.18/32,REJECT
+  - IP-CIDR,47.100.123.169/32,REJECT
+  - IP-CIDR,47.101.175.206/32,REJECT
+  - IP-CIDR,59.111.239.61/32,REJECT
+  - IP-CIDR,59.111.239.62/32,REJECT
+  - IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,REJECT
+  - IP-CIDR6,2402:4e00:1900:1700:0:9554:1ad9:c3a/128,REJECT
+  - IP-CIDR6,2402:db40:5100:1011::5/128,REJECT
+  - IP-CIDR6,240e:928:1400:10::25/128,REJECT
+
 
 # ==================================================
 # QUIC 拦截
