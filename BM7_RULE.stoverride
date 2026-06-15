@@ -26,7 +26,17 @@ proxy-groups:
     tolerance: 300
     lazy: true
     url: http://www.gstatic.com/generate_204
-    filter: "(?i)^(?!.*(?:🇯🇵|JP|Japan|japan|Tokyo|tokyo|日本|东京|大阪|京日|苏日|沪日|上日|川日|深日|广日|日|🇺🇸|US|USA|America|america|United States|美国|凤凰城|洛杉矶|西雅图|芝加哥|纽约|沪美|美)).*"
+
+  # 仅日本 / 美国节点自动测速
+  - name: BM7-Auto 日美
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Speedtest.png
+    type: url-test
+    include-all: true
+    interval: 600
+    tolerance: 300
+    lazy: true
+    url: http://www.gstatic.com/generate_204
+    filter: "(?i)(🇯🇵|JP|Japan|Tokyo|日本|东京|大阪|京日|苏日|沪日|上日|川日|深日|广日|🇺🇸|US|USA|America|United States|美国|凤凰城|洛杉矶|西雅图|芝加哥|纽约|沪美)"
 
   # 地区节点
   - name: BM7-HK 香港
