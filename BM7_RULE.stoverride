@@ -2,7 +2,6 @@ name: "blackmatrix7 分流规则覆写"
 
 desc: |-
   适用于“机场原始 Stash 订阅可以直接导入使用”的场景。
-  通过 include-all: true 引用原订阅中的全部节点。
 
   覆盖策略：
   - proxy-groups 使用 #!replace，避免与原订阅策略组混合。
@@ -14,7 +13,6 @@ desc: |-
   2. 分流-* 放在中间，用于不同服务分流；
   3. 节点-* 放在最后，用于地区节点筛选。
 
-  分流-* 分组已启用 include-all: true：
   既可以选择自定义策略组，也可以直接选择订阅中的某个固定节点。
 
 mode: rule
@@ -29,8 +27,6 @@ proxy-groups: #!replace
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png
     type: select
     include-all: true
-    proxies:
-      - DIRECT
 
   - name: Auto
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Speedtest.png
@@ -67,7 +63,6 @@ proxy-groups: #!replace
       - 节点-US 美国
       - 节点-SG 新加坡
       - 节点-其它地区
-    include-all: true
 
 # ==================================================
 # 分流策略组：分流-*
