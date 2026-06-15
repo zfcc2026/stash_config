@@ -55,10 +55,9 @@ proxy-groups: #!replace
   - name: Final
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png
     type: select
-    include-all: true
     proxies:
-      - DIRECT
       - Proxy
+      - DIRECT
       - Auto
       - Auto 日美
       - 节点-HK 香港
@@ -68,6 +67,7 @@ proxy-groups: #!replace
       - 节点-US 美国
       - 节点-SG 新加坡
       - 节点-其它地区
+    include-all: true
 
 # ==================================================
 # 分流策略组：分流-*
