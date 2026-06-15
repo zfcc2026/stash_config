@@ -14,6 +14,10 @@ desc: |-
   3. 分流-* 放在中间，用于不同服务分流；
   4. 节点-* 放在最后，用于地区节点筛选。
 
+  既可以选择自定义策略组，也可以直接选择订阅中的某个固定节点。
+  已整合 BlockHTTPDNS 的 rules 部分：DOMAIN / DOMAIN-SUFFIX / IP-CIDR / IP-CIDR6。
+  未整合 BlockHTTPDNS 的 http.rewrite / force-http-engine / mitm，避免引入 MITM 复杂度。
+
 mode: rule
 
 
@@ -23,32 +27,33 @@ proxy-groups: #!replace
 # 核心选择组
 # ==================================================
   - name: Proxy
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Proxy.png
     type: select
     include-all: true
 
   - name: Auto
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Speedtest.png
+    icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Speedtest.png
     type: url-test
     include-all: true
+    filter: '(?i)^(?!.*(?:有效期|到期|过期|失效|剩余|用量|已用|总量|套餐|重置|Expire|Expiry|Expiration|Expire\s*Date|Traffic|Bandwidth|Data|Usage|Used|Remaining|Remain|Reset|Days?\s*Left|Quota|Total|\d{4}[-/\.年]\d{1,2}[-/\.月]\d{1,2}|\d+(\.\d+)?\s*(KiB|MiB|GiB|TiB|KB|MB|GB|TB|K|M|G|T)\s*(\||/|of)\s*\d+(\.\d+)?\s*(KiB|MiB|GiB|TiB|KB|MB|GB|TB|K|M|G|T))).*'
     interval: 600
     tolerance: 300
     lazy: true
     url: http://www.gstatic.com/generate_204
 
   - name: Auto 日美
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Speedtest.png
+    icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Speedtest.png
     type: url-test
     include-all: true
+    filter: '(?i)^(?!.*(?:有效期|到期|过期|失效|剩余|用量|已用|总量|套餐|重置|Expire|Expiry|Expiration|Expire\s*Date|Traffic|Bandwidth|Data|Usage|Used|Remaining|Remain|Reset|Days?\s*Left|Quota|Total|\d{4}[-/\.年]\d{1,2}[-/\.月]\d{1,2}|\d+(\.\d+)?\s*(KiB|MiB|GiB|TiB|KB|MB|GB|TB|K|M|G|T)\s*(\||/|of)\s*\d+(\.\d+)?\s*(KiB|MiB|GiB|TiB|KB|MB|GB|TB|K|M|G|T))).*(?:🇯🇵|JP|JPN|Japan|Tokyo|日本|东京|大阪|京日|苏日|沪日|上日|川日|深日|广日|🇺🇸|US|USA|America|United States|美国|凤凰城|洛杉矶|西雅图|芝加哥|纽约|沪美).*'
     interval: 600
     tolerance: 300
     lazy: true
     url: http://www.gstatic.com/generate_204
-    filter: "(?i)(🇯🇵|JP|Japan|Tokyo|日本|东京|大阪|京日|苏日|沪日|上日|川日|深日|广日|🇺🇸|US|USA|America|United States|美国|凤凰城|洛杉矶|西雅图|芝加哥|纽约|沪美)"
 
   # 兜底策略，默认直连，可手动切换到代理或具体节点
   - name: Final
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png
     type: select
     proxies:
       - Proxy
@@ -67,19 +72,19 @@ proxy-groups: #!replace
 # 订阅信息组：仅用于查看，不参与分流规则
 # ==================================================
   - name: 订阅信息
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Info.png
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Airport.png
     type: select
     include-all: true
     filter: '(?i)(有效期|到期|过期|失效|剩余|用量|已用|总量|套餐|重置|Expire|Expiry|Expiration|Expire\s*Date|Traffic|Bandwidth|Data|Usage|Used|Remaining|Remain|Reset|Days?\s*Left|Quota|Total|\d{4}[-/\.年]\d{1,2}[-/\.月]\d{1,2}|\d+(\.\d+)?\s*(KiB|MiB|GiB|TiB|KB|MB|GB|TB|K|M|G|T)\s*(\||/|of)\s*\d+(\.\d+)?\s*(KiB|MiB|GiB|TiB|KB|MB|GB|TB|K|M|G|T))'
 
   - name: 订阅-到期信息
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Calendar.png
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Airport.png
     type: select
     include-all: true
     filter: '(?i)(有效期|到期|过期|失效|Expire|Expiry|Expiration|Expire\s*Date|\d{4}[-/\.年]\d{1,2}[-/\.月]\d{1,2})'
 
   - name: 订阅-流量信息
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Speedtest.png
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Airport.png
     type: select
     include-all: true
     filter: '(?i)(剩余|用量|已用|总量|套餐|重置|Traffic|Bandwidth|Data|Usage|Used|Remaining|Remain|Reset|Days?\s*Left|Quota|Total|\d+(\.\d+)?\s*(KiB|MiB|GiB|TiB|KB|MB|GB|TB|K|M|G|T)\s*(\||/|of)\s*\d+(\.\d+)?\s*(KiB|MiB|GiB|TiB|KB|MB|GB|TB|K|M|G|T))'
