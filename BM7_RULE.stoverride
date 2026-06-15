@@ -75,7 +75,6 @@ proxy-groups: #!replace
   - name: 分流-AI
     icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png
     type: select
-    include-all: true
     proxies:
       - Proxy
       - Auto
@@ -89,7 +88,6 @@ proxy-groups: #!replace
   - name: 分流-Developer
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/GitHub.png
     type: select
-    include-all: true
     proxies:
       - Proxy
       - Auto
@@ -103,7 +101,6 @@ proxy-groups: #!replace
   - name: 分流-Google
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Google_Search.png
     type: select
-    include-all: true
     proxies:
       - Proxy
       - Auto
@@ -118,7 +115,6 @@ proxy-groups: #!replace
   - name: 分流-YouTube
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png
     type: select
-    include-all: true
     proxies:
       - Proxy
       - Auto
@@ -133,7 +129,6 @@ proxy-groups: #!replace
   - name: 分流-Telegram
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Telegram.png
     type: select
-    include-all: true
     proxies:
       - Proxy
       - Auto
@@ -147,7 +142,6 @@ proxy-groups: #!replace
   - name: 分流-Social
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Twitter.png
     type: select
-    include-all: true
     proxies:
       - Proxy
       - Auto
@@ -162,7 +156,6 @@ proxy-groups: #!replace
   - name: 分流-Streaming
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png
     type: select
-    include-all: true
     proxies:
       - Proxy
       - Auto
@@ -177,7 +170,6 @@ proxy-groups: #!replace
   - name: 分流-Game
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png
     type: select
-    include-all: true
     proxies:
       - Proxy
       - Auto
@@ -193,7 +185,6 @@ proxy-groups: #!replace
   - name: 分流-Apple
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png
     type: select
-    include-all: true
     proxies:
       - Proxy
       - Auto
@@ -207,7 +198,6 @@ proxy-groups: #!replace
   - name: 分流-Microsoft
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Microsoft.png
     type: select
-    include-all: true
     proxies:
       - Proxy
       - Auto
@@ -221,7 +211,6 @@ proxy-groups: #!replace
   - name: 分流-PayPal
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/PayPal.png
     type: select
-    include-all: true
     proxies:
       - Proxy
       - Auto 日美
@@ -236,7 +225,6 @@ proxy-groups: #!replace
   - name: 分流-Amazon
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Amazon.png
     type: select
-    include-all: true
     proxies:
       - Proxy
       - Auto 日美
