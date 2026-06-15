@@ -1,0 +1,704 @@
+name: "blackmatrix7 分流规则覆写"
+desc: |-
+  适用于“机场原始 Stash 订阅可以直接导入使用”的场景。
+  不再接管 proxy-providers，不再重新拉取节点。
+  通过 include-all: true 引用原订阅中的全部节点。
+  规则使用 blackmatrix7/ios_rule_script 的 Clash 规则集。
+  注意：本覆写不会替换原订阅规则，只会把本文件中的规则插入到原规则前面。
+
+mode: rule
+
+proxy-groups:
+  # 直接手动选择所有节点
+  - name: BM7-Proxy
+    type: select
+    include-all: true
+    proxies:
+      - DIRECT
+
+  # 全部节点自动测速
+  - name: BM7-Auto
+    type: url-test
+    include-all: true
+    interval: 600
+    tolerance: 300
+    lazy: true
+    url: http://www.gstatic.com/generate_204
+
+  # 地区节点
+  - name: BM7-HK 香港
+    type: url-test
+    include-all: true
+    interval: 600
+    tolerance: 300
+    lazy: true
+    url: http://www.gstatic.com/generate_204
+    filter: "(?i)(🇭🇰|HK|Hong|hong|香港|深港|沪港|京港|港)"
+
+  - name: BM7-TW 台湾省
+    type: url-test
+    include-all: true
+    interval: 600
+    tolerance: 300
+    lazy: true
+    url: http://www.gstatic.com/generate_204
+    filter: "(?i)(🇹🇼|TW|TWN|Taiwan|Taipei|taiwan|台湾|台灣|台北|台中|新北|彰化)"
+
+  - name: BM7-JP 日本
+    type: url-test
+    include-all: true
+    interval: 600
+    tolerance: 300
+    lazy: true
+    url: http://www.gstatic.com/generate_204
+    filter: "(?i)(🇯🇵|JP|Japan|japan|Tokyo|tokyo|日本|东京|大阪|京日|苏日|沪日|上日|川日|深日|广日|日)"
+
+  - name: BM7-KR 韩国
+    type: url-test
+    include-all: true
+    interval: 600
+    tolerance: 300
+    lazy: true
+    url: http://www.gstatic.com/generate_204
+    filter: "(?i)(🇰🇷|KR|Korea|korea|KOR|韩国|首尔|韩|韓|春川)"
+
+  - name: BM7-US 美国
+    type: url-test
+    include-all: true
+    interval: 600
+    tolerance: 300
+    lazy: true
+    url: http://www.gstatic.com/generate_204
+    filter: "(?i)(🇺🇸|US|USA|America|america|United States|美国|凤凰城|洛杉矶|西雅图|芝加哥|纽约|沪美|美)"
+
+  - name: BM7-SG 新加坡
+    type: url-test
+    include-all: true
+    interval: 600
+    tolerance: 300
+    lazy: true
+    url: http://www.gstatic.com/generate_204
+    filter: "(?i)(🇸🇬|SG|Sing|sing|新加坡|狮城|沪新|京新|深新|杭新|广新)"
+
+  - name: BM7-其它地区
+    type: url-test
+    include-all: true
+    interval: 600
+    tolerance: 300
+    lazy: true
+    url: http://www.gstatic.com/generate_204
+    filter: "(?i)^(?!.*(?:🇭🇰|HK|Hong|hong|香港|深港|沪港|京港|港|🇹🇼|TW|TWN|Taiwan|Taipei|taiwan|台湾|台灣|台北|台中|新北|彰化|🇯🇵|JP|Japan|japan|Tokyo|tokyo|日本|东京|大阪|京日|苏日|沪日|上日|川日|深日|广日|日|🇰🇷|KR|Korea|korea|KOR|韩国|首尔|韩|韓|春川|🇺🇸|US|USA|America|america|United States|美国|凤凰城|洛杉矶|西雅图|芝加哥|纽约|沪美|美|🇸🇬|SG|Sing|sing|新加坡|狮城|沪新|京新|深新|杭新|广新)).*"
+
+  # 功能分组
+  - name: BM7-AI
+    type: select
+    proxies:
+      - BM7-US 美国
+      - BM7-JP 日本
+      - BM7-SG 新加坡
+      - BM7-HK 香港
+      - BM7-Proxy
+      - BM7-Auto
+      - DIRECT
+
+  - name: BM7-Developer
+    type: select
+    proxies:
+      - BM7-HK 香港
+      - BM7-JP 日本
+      - BM7-SG 新加坡
+      - BM7-US 美国
+      - BM7-Proxy
+      - BM7-Auto
+      - DIRECT
+
+  - name: BM7-Google
+    type: select
+    proxies:
+      - BM7-HK 香港
+      - BM7-JP 日本
+      - BM7-SG 新加坡
+      - BM7-TW 台湾省
+      - BM7-US 美国
+      - BM7-Proxy
+      - BM7-Auto
+      - DIRECT
+
+  - name: BM7-YouTube
+    type: select
+    proxies:
+      - BM7-HK 香港
+      - BM7-JP 日本
+      - BM7-SG 新加坡
+      - BM7-TW 台湾省
+      - BM7-US 美国
+      - BM7-Proxy
+      - BM7-Auto
+      - DIRECT
+
+  - name: BM7-Telegram
+    type: select
+    proxies:
+      - BM7-SG 新加坡
+      - BM7-HK 香港
+      - BM7-JP 日本
+      - BM7-US 美国
+      - BM7-Proxy
+      - BM7-Auto
+      - DIRECT
+
+  - name: BM7-Social
+    type: select
+    proxies:
+      - BM7-HK 香港
+      - BM7-JP 日本
+      - BM7-SG 新加坡
+      - BM7-TW 台湾省
+      - BM7-US 美国
+      - BM7-Proxy
+      - BM7-Auto
+      - DIRECT
+
+  - name: BM7-Streaming
+    type: select
+    proxies:
+      - BM7-JP 日本
+      - BM7-US 美国
+      - BM7-SG 新加坡
+      - BM7-HK 香港
+      - BM7-TW 台湾省
+      - BM7-Proxy
+      - BM7-Auto
+      - DIRECT
+
+  - name: BM7-Game
+    type: select
+    proxies:
+      - BM7-HK 香港
+      - BM7-JP 日本
+      - BM7-SG 新加坡
+      - BM7-TW 台湾省
+      - BM7-KR 韩国
+      - BM7-US 美国
+      - BM7-Proxy
+      - BM7-Auto
+      - DIRECT
+
+  - name: BM7-Apple
+    type: select
+    proxies:
+      - DIRECT
+      - BM7-HK 香港
+      - BM7-JP 日本
+      - BM7-SG 新加坡
+      - BM7-US 美国
+      - BM7-Proxy
+      - BM7-Auto
+
+  - name: BM7-Microsoft
+    type: select
+    proxies:
+      - DIRECT
+      - BM7-HK 香港
+      - BM7-JP 日本
+      - BM7-SG 新加坡
+      - BM7-US 美国
+      - BM7-Proxy
+      - BM7-Auto
+
+  - name: BM7-PayPal
+    type: select
+    proxies:
+      - DIRECT
+      - BM7-Proxy
+      - BM7-HK 香港
+      - BM7-TW 台湾省
+      - BM7-JP 日本
+      - BM7-SG 新加坡
+      - BM7-KR 韩国
+      - BM7-US 美国
+
+  - name: BM7-Amazon
+    type: select
+    proxies:
+      - DIRECT
+      - BM7-Proxy
+      - BM7-HK 香港
+      - BM7-TW 台湾省
+      - BM7-JP 日本
+      - BM7-SG 新加坡
+      - BM7-KR 韩国
+      - BM7-US 美国
+
+rules:
+  # 减少代理侧 QUIC/UDP 443 在弱网下的波动
+  - SCRIPT,bm7_quic,REJECT
+
+  # 钉钉 / 阿里办公直连
+  - DOMAIN-SUFFIX,dingtalk.com,DIRECT
+  - DOMAIN-SUFFIX,dingtalkapps.com,DIRECT
+  - DOMAIN-SUFFIX,dingtalkcdn.com,DIRECT
+
+  # 广告与隐私
+  - RULE-SET,BM7-Advertising,REJECT
+  - RULE-SET,BM7-Privacy,REJECT
+
+  # AI
+  - RULE-SET,BM7-OpenAI,BM7-AI
+  - RULE-SET,BM7-Claude,BM7-AI
+  - RULE-SET,BM7-Anthropic,BM7-AI
+  - RULE-SET,BM7-Gemini,BM7-AI
+  - RULE-SET,BM7-Copilot,BM7-AI
+
+  # Developer
+  - RULE-SET,BM7-GitHub,BM7-Developer
+  - RULE-SET,BM7-GitLab,BM7-Developer
+  - RULE-SET,BM7-Docker,BM7-Developer
+  - RULE-SET,BM7-Jetbrains,BM7-Developer
+  - RULE-SET,BM7-Npmjs,BM7-Developer
+  - RULE-SET,BM7-Python,BM7-Developer
+
+  # Google / YouTube / Telegram
+  - RULE-SET,BM7-YouTube,BM7-YouTube
+  - RULE-SET,BM7-Google,BM7-Google
+  - RULE-SET,BM7-Telegram,BM7-Telegram
+
+  # Social
+  - RULE-SET,BM7-Twitter,BM7-Social
+  - RULE-SET,BM7-Instagram,BM7-Social
+  - RULE-SET,BM7-Facebook,BM7-Social
+  - RULE-SET,BM7-Reddit,BM7-Social
+  - RULE-SET,BM7-Discord,BM7-Social
+  - RULE-SET,BM7-TikTok,BM7-Social
+  - RULE-SET,BM7-Threads,BM7-Social
+  - RULE-SET,BM7-Whatsapp,BM7-Social
+  - RULE-SET,BM7-Line,BM7-Social
+
+  # Streaming
+  - RULE-SET,BM7-Netflix,BM7-Streaming
+  - RULE-SET,BM7-Disney,BM7-Streaming
+  - RULE-SET,BM7-HBO,BM7-Streaming
+  - RULE-SET,BM7-PrimeVideo,BM7-Streaming
+  - RULE-SET,BM7-Spotify,BM7-Streaming
+  - RULE-SET,BM7-Twitch,BM7-Streaming
+  - RULE-SET,BM7-Hulu,BM7-Streaming
+  - RULE-SET,BM7-ParamountPlus,BM7-Streaming
+  - RULE-SET,BM7-Emby,BM7-Streaming
+
+  # Game
+  - RULE-SET,BM7-SteamCN,DIRECT
+  - RULE-SET,BM7-Steam,BM7-Game
+  - RULE-SET,BM7-Epic,BM7-Game
+  - RULE-SET,BM7-Nintendo,BM7-Game
+  - RULE-SET,BM7-Sony,BM7-Game
+  - RULE-SET,BM7-Xbox,BM7-Game
+  - RULE-SET,BM7-Game,BM7-Game
+
+  # Apple / Microsoft / Amazon / PayPal
+  - RULE-SET,BM7-Apple,BM7-Apple
+  - RULE-SET,BM7-Microsoft,BM7-Microsoft
+  - RULE-SET,BM7-Amazon,BM7-Amazon
+  - RULE-SET,BM7-PayPal,BM7-PayPal
+
+  # 国内直连
+  - RULE-SET,BM7-China,DIRECT
+  - RULE-SET,BM7-WeChat,DIRECT
+  - RULE-SET,BM7-BiliBili,DIRECT
+  - RULE-SET,BM7-DouYin,DIRECT
+  - RULE-SET,BM7-NetEaseMusic,DIRECT
+  - RULE-SET,BM7-Baidu,DIRECT
+  - RULE-SET,BM7-Alibaba,DIRECT
+  - RULE-SET,BM7-Tencent,DIRECT
+  - RULE-SET,BM7-ByteDance,DIRECT
+  - RULE-SET,BM7-Huawei,DIRECT
+
+rule-providers:
+  BM7-Advertising:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Advertising/Advertising.yaml
+    path: ./ruleset/blackmatrix7/Advertising.yaml
+    interval: 86400
+  BM7-Privacy:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Privacy/Privacy.yaml
+    path: ./ruleset/blackmatrix7/Privacy.yaml
+    interval: 86400
+  BM7-OpenAI:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml
+    path: ./ruleset/blackmatrix7/OpenAI.yaml
+    interval: 86400
+  BM7-Claude:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml
+    path: ./ruleset/blackmatrix7/Claude.yaml
+    interval: 86400
+  BM7-Anthropic:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Anthropic/Anthropic.yaml
+    path: ./ruleset/blackmatrix7/Anthropic.yaml
+    interval: 86400
+  BM7-Gemini:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Gemini/Gemini.yaml
+    path: ./ruleset/blackmatrix7/Gemini.yaml
+    interval: 86400
+  BM7-Copilot:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml
+    path: ./ruleset/blackmatrix7/Copilot.yaml
+    interval: 86400
+  BM7-GitHub:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub.yaml
+    path: ./ruleset/blackmatrix7/GitHub.yaml
+    interval: 86400
+  BM7-GitLab:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitLab/GitLab.yaml
+    path: ./ruleset/blackmatrix7/GitLab.yaml
+    interval: 86400
+  BM7-Docker:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Docker/Docker.yaml
+    path: ./ruleset/blackmatrix7/Docker.yaml
+    interval: 86400
+  BM7-Jetbrains:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Jetbrains/Jetbrains.yaml
+    path: ./ruleset/blackmatrix7/Jetbrains.yaml
+    interval: 86400
+  BM7-Npmjs:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Npmjs/Npmjs.yaml
+    path: ./ruleset/blackmatrix7/Npmjs.yaml
+    interval: 86400
+  BM7-Python:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Python/Python.yaml
+    path: ./ruleset/blackmatrix7/Python.yaml
+    interval: 86400
+  BM7-Google:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.yaml
+    path: ./ruleset/blackmatrix7/Google.yaml
+    interval: 86400
+  BM7-YouTube:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml
+    path: ./ruleset/blackmatrix7/YouTube.yaml
+    interval: 86400
+  BM7-Telegram:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml
+    path: ./ruleset/blackmatrix7/Telegram.yaml
+    interval: 86400
+  BM7-Twitter:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Twitter/Twitter.yaml
+    path: ./ruleset/blackmatrix7/Twitter.yaml
+    interval: 86400
+  BM7-Instagram:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Instagram/Instagram.yaml
+    path: ./ruleset/blackmatrix7/Instagram.yaml
+    interval: 86400
+  BM7-Facebook:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Facebook/Facebook.yaml
+    path: ./ruleset/blackmatrix7/Facebook.yaml
+    interval: 86400
+  BM7-Reddit:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Reddit/Reddit.yaml
+    path: ./ruleset/blackmatrix7/Reddit.yaml
+    interval: 86400
+  BM7-Discord:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Discord/Discord.yaml
+    path: ./ruleset/blackmatrix7/Discord.yaml
+    interval: 86400
+  BM7-TikTok:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.yaml
+    path: ./ruleset/blackmatrix7/TikTok.yaml
+    interval: 86400
+  BM7-Threads:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Threads/Threads.yaml
+    path: ./ruleset/blackmatrix7/Threads.yaml
+    interval: 86400
+  BM7-Whatsapp:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Whatsapp/Whatsapp.yaml
+    path: ./ruleset/blackmatrix7/Whatsapp.yaml
+    interval: 86400
+  BM7-Line:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Line/Line.yaml
+    path: ./ruleset/blackmatrix7/Line.yaml
+    interval: 86400
+  BM7-Netflix:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.yaml
+    path: ./ruleset/blackmatrix7/Netflix.yaml
+    interval: 86400
+  BM7-Disney:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Disney/Disney.yaml
+    path: ./ruleset/blackmatrix7/Disney.yaml
+    interval: 86400
+  BM7-HBO:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/HBO/HBO.yaml
+    path: ./ruleset/blackmatrix7/HBO.yaml
+    interval: 86400
+  BM7-PrimeVideo:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PrimeVideo/PrimeVideo.yaml
+    path: ./ruleset/blackmatrix7/PrimeVideo.yaml
+    interval: 86400
+  BM7-Spotify:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Spotify/Spotify.yaml
+    path: ./ruleset/blackmatrix7/Spotify.yaml
+    interval: 86400
+  BM7-Twitch:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Twitch/Twitch.yaml
+    path: ./ruleset/blackmatrix7/Twitch.yaml
+    interval: 86400
+  BM7-Hulu:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Hulu/Hulu.yaml
+    path: ./ruleset/blackmatrix7/Hulu.yaml
+    interval: 86400
+  BM7-ParamountPlus:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ParamountPlus/ParamountPlus.yaml
+    path: ./ruleset/blackmatrix7/ParamountPlus.yaml
+    interval: 86400
+  BM7-Emby:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Emby/Emby.yaml
+    path: ./ruleset/blackmatrix7/Emby.yaml
+    interval: 86400
+  BM7-SteamCN:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SteamCN/SteamCN.yaml
+    path: ./ruleset/blackmatrix7/SteamCN.yaml
+    interval: 86400
+  BM7-Steam:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.yaml
+    path: ./ruleset/blackmatrix7/Steam.yaml
+    interval: 86400
+  BM7-Epic:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Epic/Epic.yaml
+    path: ./ruleset/blackmatrix7/Epic.yaml
+    interval: 86400
+  BM7-Nintendo:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Nintendo/Nintendo.yaml
+    path: ./ruleset/blackmatrix7/Nintendo.yaml
+    interval: 86400
+  BM7-Sony:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Sony/Sony.yaml
+    path: ./ruleset/blackmatrix7/Sony.yaml
+    interval: 86400
+  BM7-Xbox:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Xbox/Xbox.yaml
+    path: ./ruleset/blackmatrix7/Xbox.yaml
+    interval: 86400
+  BM7-Game:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/Game.yaml
+    path: ./ruleset/blackmatrix7/Game.yaml
+    interval: 86400
+  BM7-Apple:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.yaml
+    path: ./ruleset/blackmatrix7/Apple.yaml
+    interval: 86400
+  BM7-Microsoft:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml
+    path: ./ruleset/blackmatrix7/Microsoft.yaml
+    interval: 86400
+  BM7-Amazon:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Amazon/Amazon.yaml
+    path: ./ruleset/blackmatrix7/Amazon.yaml
+    interval: 86400
+  BM7-PayPal:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PayPal/PayPal.yaml
+    path: ./ruleset/blackmatrix7/PayPal.yaml
+    interval: 86400
+  BM7-China:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/China/China.yaml
+    path: ./ruleset/blackmatrix7/China.yaml
+    interval: 86400
+  BM7-WeChat:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/WeChat/WeChat.yaml
+    path: ./ruleset/blackmatrix7/WeChat.yaml
+    interval: 86400
+  BM7-BiliBili:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BiliBili/BiliBili.yaml
+    path: ./ruleset/blackmatrix7/BiliBili.yaml
+    interval: 86400
+  BM7-DouYin:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/DouYin/DouYin.yaml
+    path: ./ruleset/blackmatrix7/DouYin.yaml
+    interval: 86400
+  BM7-NetEaseMusic:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/NetEaseMusic/NetEaseMusic.yaml
+    path: ./ruleset/blackmatrix7/NetEaseMusic.yaml
+    interval: 86400
+  BM7-Baidu:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Baidu/Baidu.yaml
+    path: ./ruleset/blackmatrix7/Baidu.yaml
+    interval: 86400
+  BM7-Alibaba:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Alibaba/Alibaba.yaml
+    path: ./ruleset/blackmatrix7/Alibaba.yaml
+    interval: 86400
+  BM7-Tencent:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Tencent/Tencent.yaml
+    path: ./ruleset/blackmatrix7/Tencent.yaml
+    interval: 86400
+  BM7-ByteDance:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ByteDance/ByteDance.yaml
+    path: ./ruleset/blackmatrix7/ByteDance.yaml
+    interval: 86400
+  BM7-Huawei:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Huawei/Huawei.yaml
+    path: ./ruleset/blackmatrix7/Huawei.yaml
+    interval: 86400
+
+script:
+  shortcuts:
+    bm7_quic: network == 'udp' and dst_port == 443
