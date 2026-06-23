@@ -1,9 +1,20 @@
-name: 卡厄斯梦境国服反和谐小开关
-desc: 拦截国服本地化文本请求并重定向至原版服务器
+name: CZN 小开关尝试
+desc: 尝试将卡厄斯梦境国服资源 CDN 请求从 .cn 地址改为非 .cn 地址
 
 http:
   mitm:
-    - "czn.cdn.net"
+    - czn.cdn.net.cn
+    - '*.czn.cdn.net.cn'
 
-url-rewrite:
-  - ^https?:\/\/czn\.cdn\.net\.cn\/(.*) http://cdn.net status=302
+  script:
+    - match: ^https?:\/\/czn\.cdn\.net\.cn\/
+      name: CZN_CDN_Rewrite
+      type: request
+    - match: ^https?:\/\/.+\.czn\.cdn\.net\.cn\/
+      name: CZN_CDN_Rewrite
+      type: request
+
+script-providers:
+  CZN_CDN_Rewrite:
+    url: https://raw.githubusercontent.com/zfcc2026/stash_config/refs/heads/main/czn-cdn-rewrite.js
+    interval: 86400
