@@ -1,0 +1,9 @@
+name: 卡厄斯梦境国服反和谐小开关
+desc: 拦截国服本地化文本请求并重定向至原版服务器
+
+http:
+  mitm:
+    - "czn.cdn.net"
+
+url-rewrite:
+  - ^https?:\/\/czn\.cdn\.net\.cn\/(.*) http://cdn.net status=302
